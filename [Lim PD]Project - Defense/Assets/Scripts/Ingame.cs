@@ -15,7 +15,7 @@ public class Ingame : MonoBehaviour
     private GameObject zombie_Parents;
 
     private float arrow_Speed = 0.05f;
-
+    private float zombie_Speed = 0.1f;
     private bool m_Right = false;
     private bool m_Left = false;
 
@@ -28,9 +28,8 @@ public class Ingame : MonoBehaviour
             return arrow_Speed;
         }
     }
-    void Start()
-    {
-    }
+      
+
 
     public void Initialized()
     {
@@ -72,15 +71,9 @@ public class Ingame : MonoBehaviour
         zombie.transform.SetParent(zombie_Parents.transform, false);
         zombie.transform.localPosition = new Vector2(UnityEngine.Random.Range(-500, 500), UnityEngine.Random.Range(1000, 1200));
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(zombie_Speed);
         StartCoroutine(Zombie());
     }
-
-
-
-
-
-
 
 
     // 캐릭터 움직임
