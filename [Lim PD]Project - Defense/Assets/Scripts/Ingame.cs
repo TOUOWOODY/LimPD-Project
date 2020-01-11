@@ -14,7 +14,7 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private GameObject zombie_Parents;
 
-    private float arrow_Speed = 0.01f;
+    private float arrow_Speed = 0.05f;
 
     private bool m_Right = false;
     private bool m_Left = false;
@@ -37,7 +37,7 @@ public class Ingame : MonoBehaviour
         StartCoroutine(Shot_Arrow());
         StartCoroutine(Zombie());
     }
-    void Update()
+    void FixedUpdate()
     {
         if(m_Right && !Right_End)
         {

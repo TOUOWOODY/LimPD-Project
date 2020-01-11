@@ -31,10 +31,4 @@ public class Game_Manager : MonoBehaviour
         object_Pooling.Initialized();
         ingame.Initialized();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
