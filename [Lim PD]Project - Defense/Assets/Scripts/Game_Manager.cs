@@ -8,7 +8,7 @@ public class Game_Manager : MonoBehaviour
 
     public Object_Pooling object_Pooling;
 
-    private static Game_Manager instance = null;
+    private static Game_Manager instance = null;    // 싱글톤
 
     public static Game_Manager Instance
     {
