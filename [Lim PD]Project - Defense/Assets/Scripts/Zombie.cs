@@ -21,6 +21,15 @@ public class Zombie : MonoBehaviour
         {
             Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
+            this.gameObject.SetActive(false);
+        }
+
+        if (collision.name == "Bomb")
+        {
+            Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
+            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);
         }
 
@@ -28,6 +37,7 @@ public class Zombie : MonoBehaviour
         {
             Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Ingame : MonoBehaviour
 {
@@ -22,7 +23,10 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private GameObject Pet;
 
-    private float arrow_Speed = 0.05f;
+    [SerializeField]
+    private Sprite Tower_Image;
+
+    private float arrow_Speed = 0.2f;
     private float zombie_Speed = 0.1f;
     private bool m_Right = false;
     private bool m_Left = false;
@@ -66,6 +70,25 @@ public class Ingame : MonoBehaviour
             character.transform.Translate(-0.1f, 0, 0);
         }
     }
+
+
+
+    public void Click_Tower()
+    {
+        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = Tower_Image;
+
+        StartCoroutine(EventSystem.current.currentSelectedGameObject.GetComponent<Tower>().Shot_Bomb());
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     IEnumerator Shot_Arrow()
