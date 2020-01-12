@@ -26,7 +26,7 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Wall")
+        if (collision.name == "Zombie")
         {
             Game_Manager.Instance.object_Pooling.Bomb_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);

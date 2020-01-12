@@ -71,17 +71,16 @@ public class Tower : MonoBehaviour
 
     public IEnumerator Shot_Bomb()
     {
-        if (enemy != null)
+        if (enemy != null && enemy.activeSelf)
         {
             GameObject bomb = Game_Manager.Instance.object_Pooling.Bomb_OP.Dequeue();
             bomb.transform.SetParent(bomb_Parents.transform, false);
             bomb.GetComponent<Bomb>().Enemy = enemy.transform.localPosition;
-            Debug.LogError(enemy.transform.localPosition);
             bomb.transform.localPosition = this.transform.localPosition;
             bomb.SetActive(true);
             bomb.name = "Bomb";
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(Shot_Bomb());
     }

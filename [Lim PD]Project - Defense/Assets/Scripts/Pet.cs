@@ -51,7 +51,7 @@ public class Pet : MonoBehaviour
         arrow.transform.localRotation = Quaternion.Euler(0, 0, -90);
         arrow.transform.localPosition = this.transform.localPosition;
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1));
         StartCoroutine(Pet_Attack());
     }
 }
