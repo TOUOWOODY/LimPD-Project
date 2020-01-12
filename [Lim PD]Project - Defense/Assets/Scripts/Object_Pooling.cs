@@ -20,7 +20,7 @@ public class Object_Pooling : MonoBehaviour
         Arrow_OP = new Queue<GameObject>();
         Zombie_OP = new Queue<GameObject>();
 
-        for(int i = 0; i < 50; i++)
+        for(int i = 0; i < 100; i++)
         {
             GameObject arrow = Instantiate(Arrow, new Vector3(0, 0, 0), Quaternion.identity);
             Arrow_OP.Enqueue(arrow);

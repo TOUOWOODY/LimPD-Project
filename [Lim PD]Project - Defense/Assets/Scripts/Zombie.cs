@@ -10,7 +10,7 @@ public class Zombie : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(0, -0.02f, 0);
     }

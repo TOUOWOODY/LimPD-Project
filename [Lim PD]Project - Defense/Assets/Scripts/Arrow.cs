@@ -11,7 +11,7 @@ public class Arrow : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(-0.2f, 0 ,0);
     }

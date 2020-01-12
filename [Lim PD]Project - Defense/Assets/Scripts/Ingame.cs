@@ -6,13 +6,21 @@ using UnityEngine.UI;
 public class Ingame : MonoBehaviour
 {
     [SerializeField]
-    private GameObject character;
+    private GameObject Canvas;
 
     [SerializeField]
-    private GameObject arrow_Parents;
+    private GameObject flag;
+
+    [SerializeField]
+    private GameObject character;
+
+    public GameObject arrow_Parents;
 
     [SerializeField]
     private GameObject zombie_Parents;
+
+    [SerializeField]
+    private GameObject Pet;
 
     private float arrow_Speed = 0.05f;
     private float zombie_Speed = 0.1f;
@@ -35,6 +43,16 @@ public class Ingame : MonoBehaviour
     {
         StartCoroutine(Shot_Arrow());
         StartCoroutine(Zombie());
+        Pet_Summon();
+    }
+
+    private void Pet_Summon()
+    {
+        GameObject pet = Instantiate(Pet, new Vector2(0, 0), Quaternion.identity);
+        StartCoroutine(pet.GetComponent<Pet>().Pet_Attack());
+        pet.name = "pet";
+        pet.transform.SetParent(Canvas.transform, false);
+        pet.transform.localPosition = flag.transform.localPosition;
     }
     void FixedUpdate()
     {
