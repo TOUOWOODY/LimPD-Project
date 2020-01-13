@@ -31,5 +31,14 @@ public class Arrow : MonoBehaviour
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.gameObject.SetActive(false);
         }
+
+        if (collision.name == "Item")
+        {
+            Game_Manager.Instance.object_Pooling.Arrow_OP.Enqueue(this.gameObject);
+            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.gameObject.SetActive(false);
+
+            Debug.LogError("몬스터 속도 저하 !!");
+        }
     }
 }
