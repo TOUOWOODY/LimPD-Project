@@ -41,4 +41,11 @@ public class Zombie : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
+
+    private void Drop_Item()
+    {
+        GameObject item = Game_Manager.Instance.object_Pooling.Item_OP.Dequeue();
+        item.SetActive(true);
+        item.name = "Item";
+    }
 }

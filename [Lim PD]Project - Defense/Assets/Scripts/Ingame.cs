@@ -16,7 +16,7 @@ public class Ingame : MonoBehaviour
     private GameObject character;
 
     public GameObject arrow_Parents;
-
+    public GameObject item_Parents;
     [SerializeField]
     private GameObject zombie_Parents;
 
@@ -27,7 +27,7 @@ public class Ingame : MonoBehaviour
     private Sprite Tower_Image;
 
     private float arrow_Speed = 0.5f;
-    private float zombie_Speed = 0.1f;
+    private float zombie_Speed = 0.5f;
     private bool m_Right = false;
     private bool m_Left = false;
 
