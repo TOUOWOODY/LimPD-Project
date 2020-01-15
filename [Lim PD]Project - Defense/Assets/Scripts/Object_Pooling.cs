@@ -53,12 +53,12 @@ public class Object_Pooling : MonoBehaviour
             zombie.SetActive(false);
         }
 
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject item = Instantiate(Item, new Vector3(0, 0, 0), Quaternion.identity);
-            Item_OP.Enqueue(item);
-            item.transform.SetParent(OP_Parents.transform, false);
-            item.SetActive(false);
-        }
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    GameObject item = Instantiate(Item, new Vector3(0, 0, 0), Quaternion.identity);
+        //    Item_OP.Enqueue(item);
+        //    item.transform.SetParent(OP_Parents.transform, false);
+        //    item.SetActive(false);
+        //}
     }
 }

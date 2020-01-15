@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class Monster : MonoBehaviour
 {
     void Start()
     {
@@ -12,7 +12,7 @@ public class Zombie : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(0, -0.02f, 0);
+        transform.Translate(0, -0.01f, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

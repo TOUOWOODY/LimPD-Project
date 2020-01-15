@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pet : MonoBehaviour
+public class Boss : MonoBehaviour
 {
     private bool right = false;
     private bool left = true;

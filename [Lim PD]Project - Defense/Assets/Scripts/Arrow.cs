@@ -13,7 +13,7 @@ public class Arrow : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(-0.2f, 0 ,0);
+        transform.Translate(0, 0.2f, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
