@@ -18,11 +18,13 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Zombie")
+        if (collision.name == "Archer" || collision.name == "Warrior")
         {
             Game_Manager.Instance.object_Pooling.Arrow_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.gameObject.SetActive(false);
+
+            Game_Manager.Instance.ingame.Kill();
         }
 
         if (collision.name == "End_Wall")

@@ -4,28 +4,64 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private bool m_Right = false;
+    private bool m_Left = false;
+
+    public bool Right_End = false;
+    public bool Left_End = false;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void FixedUpdate()
     {
-        
+        if (m_Right && !Right_End)
+        {
+            transform.Translate(0.07f, 0, 0);
+        }
+
+        if (m_Left && !Left_End)
+        {
+            transform.Translate(-0.07f, 0, 0);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.name == "Right_Wall")
         {
-            Game_Manager.Instance.ingame.Right_End = true;
+            Right_End = true;
         }
 
         if (collision.name == "Left_Wall")
         {
-            Game_Manager.Instance.ingame.Left_End = true;
+            Left_End = true;
         }
+    }
+
+    public void Move_Right()
+    {
+        m_Left = false;
+        m_Right = true;
+        Left_End = false;
+    }
+
+    public void Move_Left()
+    {
+        m_Right = false;
+        m_Left = true;
+        Right_End = false;
+    }
+
+    public void Stop_Right()
+    {
+        m_Right = false;
+    }
+
+    public void Stop_Left()
+    {
+        m_Left = false;
     }
 }

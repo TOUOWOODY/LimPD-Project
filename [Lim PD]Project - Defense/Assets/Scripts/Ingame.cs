@@ -25,13 +25,26 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private Sprite Tower_Image;
 
+    [SerializeField]
+    private Text Kill_Text;
+    [SerializeField]
+    private Text Score_Text;
+
+    private int kill_Count = 0;
+    public int Kill_Count
+    {
+        get
+        {
+            return kill_Count;
+        }
+        set
+        {
+            kill_Count = value;
+        }
+    }
     private float arrow_Speed = 0.5f;
     //private float zombie_Speed = 0.5f;
-    private bool m_Right = false;
-    private bool m_Left = false;
-
-    public bool Right_End = false;
-    public bool Left_End = false;
+   
 
     public Dictionary<string, Monster_Information> Monster_info = null;
     public float Arrow_Speed
@@ -43,7 +56,17 @@ public class Ingame : MonoBehaviour
     }
       
 
+    public void Kill()
+    {
+        kill_Count += 1;
+        Kill_Text.text = "KILL " + Kill_Count;
 
+
+        if(Kill_Count == 10)
+        {
+            Debug.Log("10킬 !! 보스 등장");
+        }
+    }
     public void Initialized()
     {
         StartCoroutine(Shot_Arrow());
@@ -72,15 +95,7 @@ public class Ingame : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(m_Right && !Right_End)
-        {
-            Me.transform.Translate(0.1f,0,0);
-        }
 
-        if (m_Left && !Left_End)
-        {
-            Me.transform.Translate(-0.1f, 0, 0);
-        }
     }
 
 
@@ -137,30 +152,4 @@ public class Ingame : MonoBehaviour
         StartCoroutine(Monster());
     }
 
-
-    // 캐릭터 움직임
-
-    public void Move_Right()
-    {
-        m_Left = false;
-        m_Right = true;
-        Left_End = false;
-    }
-
-    public void Move_Left()
-    {
-        m_Right = false;
-        m_Left = true;
-        Right_End = false;
-    }
-
-    public void Stop_Right()
-    {
-        m_Right = false;
-    }
-
-    public void Stop_Left()
-    {
-        m_Left = false;
-    }
 }

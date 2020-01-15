@@ -8,6 +8,7 @@ public class Monster : MonoBehaviour
 
     void Start()
     {
+
     }
 
 
@@ -67,7 +68,7 @@ public class Monster : MonoBehaviour
         }
         GameObject monster_shot = Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Dequeue();
         monster_shot.SetActive(true);
-        monster_shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition;
+        monster_shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition - new Vector3((transform.localPosition.x + Game_Manager.Instance.ingame.Me.transform.localPosition.x),3,0);
         monster_shot.name = "Monster_Shot";
         monster_shot.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
         monster_shot.transform.localPosition = this.transform.localPosition;
@@ -80,7 +81,7 @@ public class Monster : MonoBehaviour
     {
         transform.localPosition -= new Vector3(0, 0.01f, 0);
 
-        if (transform.localPosition.y < 3f)
+        if (transform.localPosition.y < (3f + UnityEngine.Random.Range(-0.5f, 0.5f)))
         {
             StartCoroutine(Attack());
             yield break;
@@ -93,6 +94,11 @@ public class Monster : MonoBehaviour
     public IEnumerator Warrior_Move()
     {
         transform.localPosition -= new Vector3(0, 0.01f, 0);
+
+        if (transform.localPosition.y < (2f + UnityEngine.Random.Range(-0.5f, 0.5f)))
+        {
+            yield break;
+        }
 
         if (!this.gameObject.activeSelf)
         {
