@@ -8,19 +8,19 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4346157846689143294}
+  - component: {fileID: 3143278801956935174}
   - component: {fileID: 3230948520417577395}
   - component: {fileID: 7755000122039644614}
   - component: {fileID: 2847526144108077383}
   - component: {fileID: 984029438915007076}
   m_Layer: 0
-  m_Name: Monster
+  m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4346157846689143294
+--- !u!224 &3143278801956935174
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -539.5, y: -1107.84}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &3230948520417577395
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168195431e04b9f4f8102c494ab32f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monster_y: {fileID: 3143278801956935174}
 --- !u!1 &8258739292021206561
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +261,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 0.15, z: 1}
   m_Children:
   - {fileID: 8258739292021206562}
-  m_Father: {fileID: 4346157846689143294}
+  m_Father: {fileID: 3143278801956935174}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}

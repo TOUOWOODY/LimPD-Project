@@ -12,13 +12,12 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private GameObject flag;
 
-    [SerializeField]
-    private GameObject character;
+    public GameObject Me;
 
-    public GameObject arrow_Parents;
+    public GameObject Shot_Parents;
     public GameObject item_Parents;
     [SerializeField]
-    private GameObject zombie_Parents;
+    private GameObject Monster_Parents;
 
     [SerializeField]
     private GameObject Pet;
@@ -27,7 +26,7 @@ public class Ingame : MonoBehaviour
     private Sprite Tower_Image;
 
     private float arrow_Speed = 0.5f;
-    private float zombie_Speed = 0.5f;
+    //private float zombie_Speed = 0.5f;
     private bool m_Right = false;
     private bool m_Left = false;
 
@@ -48,7 +47,7 @@ public class Ingame : MonoBehaviour
     public void Initialized()
     {
         StartCoroutine(Shot_Arrow());
-        StartCoroutine(Zombie());
+        StartCoroutine(Monster());
 
         Monster_info = new Dictionary<string, Monster_Information>();
         Monster_Information monsger_infotmation = new Monster_Information();
@@ -75,12 +74,12 @@ public class Ingame : MonoBehaviour
     {
         if(m_Right && !Right_End)
         {
-            character.transform.Translate(0.1f,0,0);
+            Me.transform.Translate(0.1f,0,0);
         }
 
         if (m_Left && !Left_End)
         {
-            character.transform.Translate(-0.1f, 0, 0);
+            Me.transform.Translate(-0.1f, 0, 0);
         }
     }
 
@@ -104,23 +103,38 @@ public class Ingame : MonoBehaviour
         GameObject arrow = Game_Manager.Instance.object_Pooling.Arrow_OP.Dequeue();
         arrow.SetActive(true);
         arrow.name = "Arrow";
-        arrow.transform.SetParent(arrow_Parents.transform, false);
-        arrow.transform.localPosition = character.transform.localPosition;
+        arrow.transform.SetParent(Shot_Parents.transform, false);
+        arrow.transform.localPosition = Me.transform.localPosition;
 
         yield return new WaitForSeconds(arrow_Speed);
         StartCoroutine(Shot_Arrow());
     }
 
-    IEnumerator Zombie()
+    IEnumerator Monster()
     {
-        GameObject monster = Game_Manager.Instance.object_Pooling.Archer_OP.Dequeue();
-        monster.SetActive(true);
-        monster.name = "Zombie";
-        monster.transform.SetParent(zombie_Parents.transform, false);
-        monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
+        int random = UnityEngine.Random.Range(0, 2);
+        GameObject monster;
+        if (random == 0) // archer
+        {
+            monster = Game_Manager.Instance.object_Pooling.Archer_OP.Dequeue();
+            monster.name = "Archer";
+            monster.SetActive(true);
+            monster.transform.SetParent(Monster_Parents.transform, false);
+            monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
+            StartCoroutine(monster.GetComponent<Monster>().Archer_Move());
+        }
+        else // warrior
+        {
+            monster = Game_Manager.Instance.object_Pooling.Warrior_OP.Dequeue();
+            monster.name = "Warrior";
+            monster.SetActive(true);
+            monster.transform.SetParent(Monster_Parents.transform, false);
+            monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
+            StartCoroutine(monster.GetComponent<Monster>().Warrior_Move());
+        }
 
-        yield return new WaitForSeconds(zombie_Speed);
-        StartCoroutine(Zombie());
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(Monster());
     }
 
 

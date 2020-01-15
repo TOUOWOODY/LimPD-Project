@@ -6,16 +6,18 @@ public class Object_Pooling : MonoBehaviour
 {
     [SerializeField]
     private GameObject Arrow;
-
     [SerializeField]
     private GameObject Bomb;
+    [SerializeField]
+    private GameObject Monster_Shot;
+    [SerializeField]
+    private GameObject Boss_Shot;
+
 
     [SerializeField]
     private GameObject Archer;
-
     [SerializeField]
     private GameObject Warrior;
-
     [SerializeField]
     private GameObject Boss;
 
@@ -25,6 +27,8 @@ public class Object_Pooling : MonoBehaviour
     public GameObject OP_Parents;
 
     public Queue<GameObject> Arrow_OP = null;
+    public Queue<GameObject> Monster_Shot_OP = null;
+    public Queue<GameObject> Boss_Shot_OP = null;
     public Queue<GameObject> Bomb_OP = null;
 
     public Queue<GameObject> Archer_OP = null;
@@ -36,6 +40,9 @@ public class Object_Pooling : MonoBehaviour
     {
         Arrow_OP = new Queue<GameObject>();
         Bomb_OP = new Queue<GameObject>();
+        Monster_Shot_OP = new Queue<GameObject>();
+        Boss_Shot_OP = new Queue<GameObject>();
+
 
         Archer_OP = new Queue<GameObject>();
         Warrior_OP = new Queue<GameObject>();
@@ -58,6 +65,25 @@ public class Object_Pooling : MonoBehaviour
             bomb.transform.SetParent(OP_Parents.transform, false);
             bomb.SetActive(false);
         }
+
+        for (int i = 0; i < 100; i++)
+        {
+            GameObject monster_shot = Instantiate(Monster_Shot, new Vector3(0, 0, 0), Quaternion.identity);
+            Monster_Shot_OP.Enqueue(monster_shot);
+            monster_shot.transform.SetParent(OP_Parents.transform, false);
+            monster_shot.SetActive(false);
+        }
+
+        for (int i = 0; i < 100; i++)
+        {
+            GameObject boss_shot = Instantiate(Boss_Shot, new Vector3(0, 0, 0), Quaternion.identity);
+            Boss_Shot_OP.Enqueue(boss_shot);
+            boss_shot.transform.SetParent(OP_Parents.transform, false);
+            boss_shot.SetActive(false);
+        }
+
+
+
 
         for (int i = 0; i < 100; i++)
         {
@@ -84,12 +110,12 @@ public class Object_Pooling : MonoBehaviour
         }
 
 
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject item = Instantiate(Item, new Vector3(0, 0, 0), Quaternion.identity);
-            Item_OP.Enqueue(item);
-            item.transform.SetParent(OP_Parents.transform, false);
-            item.SetActive(false);
-        }
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    GameObject item = Instantiate(Item, new Vector3(0, 0, 0), Quaternion.identity);
+        //    Item_OP.Enqueue(item);
+        //    item.transform.SetParent(OP_Parents.transform, false);
+        //    item.SetActive(false);
+        //}
     }
 }

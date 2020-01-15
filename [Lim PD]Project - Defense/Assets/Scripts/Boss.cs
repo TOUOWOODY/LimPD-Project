@@ -47,7 +47,7 @@ public class Boss : MonoBehaviour
         GameObject arrow = Game_Manager.Instance.object_Pooling.Arrow_OP.Dequeue();
         arrow.SetActive(true);
         arrow.name = "Arrow";
-        arrow.transform.SetParent(Game_Manager.Instance.ingame.arrow_Parents.transform, false);
+        arrow.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
         arrow.transform.localRotation = Quaternion.Euler(0, 0, -90);
         arrow.transform.localPosition = this.transform.localPosition;
 
