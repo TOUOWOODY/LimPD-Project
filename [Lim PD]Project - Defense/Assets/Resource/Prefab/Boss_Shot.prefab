@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1231813856203814915}
   - component: {fileID: 116615484263114830}
   - component: {fileID: 5104729160774373435}
-  - component: {fileID: 184787684630671873}
+  - component: {fileID: 6368353881494570394}
   m_Layer: 0
   m_Name: Boss_Shot
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &184787684630671873
+--- !u!114 &6368353881494570394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,6 +121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1397804166824313748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f83caab49c35f248ad4e09f746250bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 04d7c6764da628647b9a7201d54e96d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

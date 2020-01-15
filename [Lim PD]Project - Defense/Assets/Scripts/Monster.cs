@@ -68,7 +68,7 @@ public class Monster : MonoBehaviour
         }
         GameObject monster_shot = Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Dequeue();
         monster_shot.SetActive(true);
-        monster_shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition - new Vector3((transform.localPosition.x + Game_Manager.Instance.ingame.Me.transform.localPosition.x),3,0);
+        monster_shot.GetComponent<Monster_Shot>().Enemy = new Vector3(Game_Manager.Instance.ingame.Me.transform.localPosition.x * 1.25f ,-6f,0);
         monster_shot.name = "Monster_Shot";
         monster_shot.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
         monster_shot.transform.localPosition = this.transform.localPosition;
@@ -93,10 +93,11 @@ public class Monster : MonoBehaviour
 
     public IEnumerator Warrior_Move()
     {
-        transform.localPosition -= new Vector3(0, 0.01f, 0);
+        transform.Translate(0, -0.01f, 0);
 
         if (transform.localPosition.y < (2f + UnityEngine.Random.Range(-0.5f, 0.5f)))
         {
+            StartCoroutine(Warrior_Move2(new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(1.5f, 1.8f), 0)));
             yield break;
         }
 
@@ -107,5 +108,38 @@ public class Monster : MonoBehaviour
 
         yield return new WaitForSeconds(0.01f);
         StartCoroutine(Warrior_Move());
+    }
+
+    public IEnumerator Warrior_Move2(Vector3 target)
+    {
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 0.01f);
+
+        if(transform.localPosition == target)
+        {
+            StartCoroutine(Warrior_Move3());
+            yield break;
+        }
+
+        if (!this.gameObject.activeSelf)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.01f);
+        StartCoroutine(Warrior_Move2(target));
+    }
+
+    public IEnumerator Warrior_Move3()
+    {
+        transform.Translate(0, -0.01f, 0);
+
+
+        if (!this.gameObject.activeSelf)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.01f);
+        StartCoroutine(Warrior_Move3());
     }
 }

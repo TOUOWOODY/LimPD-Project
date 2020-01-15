@@ -30,6 +30,10 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private Text Score_Text;
 
+
+    private Game_Manager Manager;
+
+
     private int kill_Count = 0;
     public int Kill_Count
     {
@@ -64,11 +68,14 @@ public class Ingame : MonoBehaviour
 
         if(Kill_Count == 10)
         {
+            Boss();
             Debug.Log("10킬 !! 보스 등장");
         }
     }
     public void Initialized()
     {
+        Manager = Game_Manager.Instance;
+
         StartCoroutine(Shot_Arrow());
         StartCoroutine(Monster());
 
@@ -82,16 +89,6 @@ public class Ingame : MonoBehaviour
         }
 
     }
-
-    private void Pet_Summon()
-    {
-        GameObject pet = Instantiate(Pet, new Vector2(0, 0), Quaternion.identity);
-        StartCoroutine(pet.GetComponent<Boss>().Pet_Attack());
-        pet.name = "pet";
-        pet.transform.SetParent(Canvas.transform, false);
-        pet.transform.localPosition = flag.transform.localPosition;
-    }
-
 
     void FixedUpdate()
     {
@@ -111,11 +108,20 @@ public class Ingame : MonoBehaviour
     }
 
 
+    private void Boss()
+    {
+        GameObject boss = Manager.object_Pooling.Boss_OP.Dequeue();
+        boss.SetActive(true);
+        boss.name = "Boss";
+        boss.transform.SetParent(Monster_Parents.transform, false);
+        boss.transform.localPosition = new Vector3(UnityEngine.Random.Range(-1.9f, 1.9f), 5, 0);
 
+        StartCoroutine(boss.GetComponent<Boss>().Boss_Move());
+    }
 
     IEnumerator Shot_Arrow()
     {
-        GameObject arrow = Game_Manager.Instance.object_Pooling.Arrow_OP.Dequeue();
+        GameObject arrow = Manager.object_Pooling.Arrow_OP.Dequeue();
         arrow.SetActive(true);
         arrow.name = "Arrow";
         arrow.transform.SetParent(Shot_Parents.transform, false);
@@ -131,7 +137,7 @@ public class Ingame : MonoBehaviour
         GameObject monster;
         if (random == 0) // archer
         {
-            monster = Game_Manager.Instance.object_Pooling.Archer_OP.Dequeue();
+            monster = Manager.object_Pooling.Archer_OP.Dequeue();
             monster.name = "Archer";
             monster.SetActive(true);
             monster.transform.SetParent(Monster_Parents.transform, false);
@@ -140,7 +146,7 @@ public class Ingame : MonoBehaviour
         }
         else // warrior
         {
-            monster = Game_Manager.Instance.object_Pooling.Warrior_OP.Dequeue();
+            monster = Manager.object_Pooling.Warrior_OP.Dequeue();
             monster.name = "Warrior";
             monster.SetActive(true);
             monster.transform.SetParent(Monster_Parents.transform, false);
