@@ -33,6 +33,8 @@ public class Ingame : MonoBehaviour
 
     public bool Right_End = false;
     public bool Left_End = false;
+
+    public Dictionary<string, Monster_Information> Monster_info = null;
     public float Arrow_Speed
     {
         get
@@ -47,7 +49,15 @@ public class Ingame : MonoBehaviour
     {
         StartCoroutine(Shot_Arrow());
         StartCoroutine(Zombie());
-        //Pet_Summon();
+
+        Monster_info = new Dictionary<string, Monster_Information>();
+        Monster_Information monsger_infotmation = new Monster_Information();
+        for(int i = 0; i < 3; i++)
+        {
+            monsger_infotmation.initialize(i);
+            Monster_info.Add(monsger_infotmation.Name, monsger_infotmation);
+        }
+
     }
 
     private void Pet_Summon()
