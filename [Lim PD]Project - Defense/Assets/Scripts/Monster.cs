@@ -19,7 +19,7 @@ public class Monster : MonoBehaviour
     {
         if (collision.name == "Wall")
         {
-            Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);
@@ -29,7 +29,7 @@ public class Monster : MonoBehaviour
         {
             Drop_Item();
 
-            Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);
@@ -39,7 +39,7 @@ public class Monster : MonoBehaviour
         {
             Drop_Item();
 
-            Game_Manager.Instance.object_Pooling.Zombie_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);

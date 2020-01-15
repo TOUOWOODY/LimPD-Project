@@ -52,6 +52,7 @@ public class Ingame : MonoBehaviour
 
         Monster_info = new Dictionary<string, Monster_Information>();
         Monster_Information monsger_infotmation = new Monster_Information();
+
         for(int i = 0; i < 3; i++)
         {
             monsger_infotmation.initialize(i);
@@ -98,14 +99,6 @@ public class Ingame : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
     IEnumerator Shot_Arrow()
     {
         GameObject arrow = Game_Manager.Instance.object_Pooling.Arrow_OP.Dequeue();
@@ -120,11 +113,11 @@ public class Ingame : MonoBehaviour
 
     IEnumerator Zombie()
     {
-        GameObject zombie = Game_Manager.Instance.object_Pooling.Zombie_OP.Dequeue();
-        zombie.SetActive(true);
-        zombie.name = "Zombie";
-        zombie.transform.SetParent(zombie_Parents.transform, false);
-        zombie.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
+        GameObject monster = Game_Manager.Instance.object_Pooling.Archer_OP.Dequeue();
+        monster.SetActive(true);
+        monster.name = "Zombie";
+        monster.transform.SetParent(zombie_Parents.transform, false);
+        monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
 
         yield return new WaitForSeconds(zombie_Speed);
         StartCoroutine(Zombie());
