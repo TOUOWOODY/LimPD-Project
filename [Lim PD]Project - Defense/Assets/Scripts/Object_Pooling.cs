@@ -14,6 +14,12 @@ public class Object_Pooling : MonoBehaviour
     private GameObject Boss_Shot;
 
 
+    //영웅
+    [SerializeField]
+    private GameObject Hero;
+
+
+    //몬스터
     [SerializeField]
     private GameObject Archer;
     [SerializeField]
@@ -31,6 +37,9 @@ public class Object_Pooling : MonoBehaviour
     public Queue<GameObject> Boss_Shot_OP = null;
     public Queue<GameObject> Bomb_OP = null;
 
+    public Queue<GameObject> Hero_OP = null;
+
+
     public Queue<GameObject> Archer_OP = null;
     public Queue<GameObject> Warrior_OP = null;
     public Queue<GameObject> Boss_OP = null;
@@ -43,6 +52,7 @@ public class Object_Pooling : MonoBehaviour
         Monster_Shot_OP = new Queue<GameObject>();
         Boss_Shot_OP = new Queue<GameObject>();
 
+        Hero_OP = new Queue<GameObject>();
 
         Archer_OP = new Queue<GameObject>();
         Warrior_OP = new Queue<GameObject>();
@@ -52,34 +62,22 @@ public class Object_Pooling : MonoBehaviour
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject arrow = Instantiate(Arrow, new Vector3(0, 0, 0), Quaternion.identity);
-            Arrow_OP.Enqueue(arrow);
-            arrow.transform.SetParent(OP_Parents.transform, false);
-            arrow.SetActive(false);
+            OP(Arrow, Arrow_OP);
         }
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject bomb = Instantiate(Bomb, new Vector3(0, 0, 0), Quaternion.identity);
-            Bomb_OP.Enqueue(bomb);
-            bomb.transform.SetParent(OP_Parents.transform, false);
-            bomb.SetActive(false);
+            OP(Bomb, Bomb_OP);
         }
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject monster_shot = Instantiate(Monster_Shot, new Vector3(0, 0, 0), Quaternion.identity);
-            Monster_Shot_OP.Enqueue(monster_shot);
-            monster_shot.transform.SetParent(OP_Parents.transform, false);
-            monster_shot.SetActive(false);
+            OP(Monster_Shot, Monster_Shot_OP);
         }
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject boss_shot = Instantiate(Boss_Shot, new Vector3(0, 0, 0), Quaternion.identity);
-            Boss_Shot_OP.Enqueue(boss_shot);
-            boss_shot.transform.SetParent(OP_Parents.transform, false);
-            boss_shot.SetActive(false);
+            OP(Boss_Shot, Boss_Shot_OP);
         }
 
 
@@ -87,35 +85,32 @@ public class Object_Pooling : MonoBehaviour
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject archer = Instantiate(Archer, new Vector3(0, 0, 0), Quaternion.identity);
-            Archer_OP.Enqueue(archer);
-            archer.transform.SetParent(OP_Parents.transform, false);
-            archer.SetActive(false);
+            OP(Archer, Archer_OP);
         }
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject warrior = Instantiate(Warrior, new Vector3(0, 0, 0), Quaternion.identity);
-            Warrior_OP.Enqueue(warrior);
-            warrior.transform.SetParent(OP_Parents.transform, false);
-            warrior.SetActive(false);
+            OP(Warrior, Warrior_OP);
         }
 
         for (int i = 0; i < 10; i++)
         {
-            GameObject boss = Instantiate(Boss, new Vector3(0, 0, 0), Quaternion.identity);
-            Boss_OP.Enqueue(boss);
-            boss.transform.SetParent(OP_Parents.transform, false);
-            boss.SetActive(false);
+            OP(Boss, Boss_OP);
         }
 
+        for (int i = 0; i < 10; i++)
+        {
+            OP(Hero, Hero_OP);
+        }
+    }
 
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    GameObject item = Instantiate(Item, new Vector3(0, 0, 0), Quaternion.identity);
-        //    Item_OP.Enqueue(item);
-        //    item.transform.SetParent(OP_Parents.transform, false);
-        //    item.SetActive(false);
-        //}
+
+
+    private void OP(GameObject Object, Queue<GameObject> queue)
+    {
+        GameObject op = Instantiate(Object, new Vector3(0, 0, 0), Quaternion.identity);
+        queue.Enqueue(op);
+        op.transform.SetParent(OP_Parents.transform, false);
+        op.SetActive(false);
     }
 }

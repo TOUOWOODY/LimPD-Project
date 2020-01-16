@@ -21,9 +21,7 @@ public class Monster_Shot : MonoBehaviour
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, enemy, 0.1f);
         if(transform.localPosition == enemy)
         {
-            Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.gameObject.SetActive(false);
+            Delete_Shot();
         }
     }
 
@@ -32,16 +30,19 @@ public class Monster_Shot : MonoBehaviour
 
         if (collision.name == "Down_Wall" || collision.name == "Right_Wall" || collision.name == "Left_Wall")
         {
-            Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.gameObject.SetActive(false);
+            Delete_Shot();
         }
 
         if (collision.name == "Me")
         {
-            Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.gameObject.SetActive(false);
+            Delete_Shot();
         }
+    }
+
+    private void Delete_Shot()
+    {
+        Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
+        this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+        this.gameObject.SetActive(false);
     }
 }

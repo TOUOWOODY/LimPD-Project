@@ -637,6 +637,7 @@ MonoBehaviour:
     type: 3}
   Boss_Shot: {fileID: 1397804166824313748, guid: d2fefa2ae13ab9d4c839939c5a83a875,
     type: 3}
+  Hero: {fileID: 1977587995822638384, guid: 08d6b976b597e364dab6975940dcedbd, type: 3}
   Archer: {fileID: 4480255749986951785, guid: 53dbcf454ede03d4297eac379881baac, type: 3}
   Warrior: {fileID: 346343846100715426, guid: 57e90b2df104da14989bc42559255467, type: 3}
   Boss: {fileID: 3150414506780965603, guid: d6ab722dba76c684b9edbcb1ba9a9d96, type: 3}
