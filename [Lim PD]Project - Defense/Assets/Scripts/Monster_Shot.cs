@@ -19,6 +19,12 @@ public class Monster_Shot : MonoBehaviour
     void FixedUpdate()
     {
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, enemy, 0.1f);
+        if(transform.localPosition == enemy)
+        {
+            Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
+            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

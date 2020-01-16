@@ -26,7 +26,8 @@ public class Boss : MonoBehaviour
 
         GameObject shot = Game_Manager.Instance.object_Pooling.Boss_Shot_OP.Dequeue();
         shot.SetActive(true);
-        shot.GetComponent<Monster_Shot>().Enemy = new Vector3(Game_Manager.Instance.ingame.Me.transform.localPosition.x * 1.3f, -6f, 0);
+        //shot.GetComponent<Monster_Shot>().Enemy = new Vector3(Game_Manager.Instance.ingame.Me.transform.localPosition.x * 1.3f, -6f, 0);
+        shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition;
         shot.name = "Boss_Shot";
         shot.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
         shot.transform.localPosition = this.transform.localPosition;
