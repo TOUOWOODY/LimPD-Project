@@ -1490,12 +1490,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Canvas: {fileID: 1446894861}
-  flag: {fileID: 0}
+  Hero_Flag_Right: {fileID: 2139215242}
+  Hero_Flag_Left: {fileID: 421022282}
   Me: {fileID: 5526479140420308529}
   Shot_Parents: {fileID: 1943923394}
   item_Parents: {fileID: 1907951108}
   Monster_Parents: {fileID: 1381263531}
-  Pet: {fileID: 7019124972963862481, guid: fec37991dfca0e04fafb0b3957fc3490, type: 3}
   Tower_Image: {fileID: 21300000, guid: 121c7cb6bfd902f448c6fe407909d2db, type: 3}
   Kill_Text: {fileID: 1344438962}
   Score_Text: {fileID: 1816891492}

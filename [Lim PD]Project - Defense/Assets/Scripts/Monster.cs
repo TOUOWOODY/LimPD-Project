@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
-        if (collision.name == "Arrow")
+        if (collision.name == "Arrow" || collision.name == "Heroo")
         {
             Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);

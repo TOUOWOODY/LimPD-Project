@@ -9,22 +9,29 @@ public class Ingame : MonoBehaviour
     [SerializeField]
     private GameObject Canvas;
 
-    [SerializeField]
-    private GameObject flag;
 
+    // 히어로가 등장하는 위치
+    [SerializeField]
+    private GameObject Hero_Flag_Right;
+    [SerializeField]
+    private GameObject Hero_Flag_Left;
+
+    //캐릭터
     public GameObject Me;
 
+
+    // 프리팹 부모들
     public GameObject Shot_Parents;
     public GameObject item_Parents;
     [SerializeField]
     private GameObject Monster_Parents;
 
-    [SerializeField]
-    private GameObject Pet;
 
     [SerializeField]
     private Sprite Tower_Image;
 
+
+    // 텍스트
     [SerializeField]
     private Text Kill_Text;
     [SerializeField]
@@ -32,7 +39,6 @@ public class Ingame : MonoBehaviour
 
 
     private Game_Manager Manager;
-
 
     private int kill_Count = 0;
     public int Kill_Count
@@ -66,9 +72,10 @@ public class Ingame : MonoBehaviour
         Kill_Text.text = "KILL " + Kill_Count;
 
 
-        if(Kill_Count == 10)
+        if(Kill_Count == 3)
         {
             Boss();
+            Hero();
             Debug.Log("10킬 !! 보스 등장");
         }
     }
@@ -87,8 +94,17 @@ public class Ingame : MonoBehaviour
             monsger_infotmation.initialize(i);
             Monster_info.Add(monsger_infotmation.Name, monsger_infotmation);
         }
-
     }
+
+
+    private void Object_Dequeue(GameObject prefab, GameObject Parents, string Name, Vector3 position)
+    {
+        prefab.SetActive(true);
+        prefab.name = Name;
+        prefab.transform.SetParent(Parents.transform, false);
+        prefab.transform.localPosition = position;
+    }
+
 
     void FixedUpdate()
     {
@@ -111,21 +127,27 @@ public class Ingame : MonoBehaviour
     private void Boss()
     {
         GameObject boss = Manager.object_Pooling.Boss_OP.Dequeue();
-        boss.SetActive(true);
-        boss.name = "Boss";
-        boss.transform.SetParent(Monster_Parents.transform, false);
-        boss.transform.localPosition = new Vector3(UnityEngine.Random.Range(-1.9f, 1.9f), 5, 0);
+
+        Object_Dequeue(boss, Monster_Parents, "Boss", new Vector3(UnityEngine.Random.Range(-1.9f, 1.9f), 5, 0));
 
         StartCoroutine(boss.GetComponent<Boss>().Boss_Move());
     }
 
+    private void Hero()
+    {
+        GameObject hero = Manager.object_Pooling.Hero_OP.Dequeue();
+
+        Object_Dequeue(hero, Monster_Parents, "Hero", Hero_Flag_Left.transform.localPosition);
+
+        StartCoroutine(hero.GetComponent<Hero>().Hero_Move());
+    }
+
+
     IEnumerator Shot_Arrow()
     {
         GameObject arrow = Manager.object_Pooling.Arrow_OP.Dequeue();
-        arrow.SetActive(true);
-        arrow.name = "Arrow";
-        arrow.transform.SetParent(Shot_Parents.transform, false);
-        arrow.transform.localPosition = Me.transform.localPosition;
+
+        Object_Dequeue(arrow, Shot_Parents, "Arrow", Me.transform.localPosition);
 
         yield return new WaitForSeconds(arrow_Speed);
         StartCoroutine(Shot_Arrow());
@@ -134,28 +156,30 @@ public class Ingame : MonoBehaviour
     IEnumerator Monster()
     {
         int random = UnityEngine.Random.Range(0, 2);
-        GameObject monster;
+
         if (random == 0) // archer
         {
-            monster = Manager.object_Pooling.Archer_OP.Dequeue();
-            monster.name = "Archer";
-            monster.SetActive(true);
-            monster.transform.SetParent(Monster_Parents.transform, false);
-            monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
-            StartCoroutine(monster.GetComponent<Monster>().Archer_Move());
+            GameObject archer = Manager.object_Pooling.Archer_OP.Dequeue();
+
+            Object_Dequeue(archer, Monster_Parents, "Archer", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
+
+            StartCoroutine(archer.GetComponent<Monster>().Archer_Move());
         }
         else // warrior
         {
-            monster = Manager.object_Pooling.Warrior_OP.Dequeue();
-            monster.name = "Warrior";
-            monster.SetActive(true);
-            monster.transform.SetParent(Monster_Parents.transform, false);
-            monster.transform.localPosition = new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f);
-            StartCoroutine(monster.GetComponent<Monster>().Warrior_Move());
+            GameObject warrior = Manager.object_Pooling.Warrior_OP.Dequeue();
+
+            Object_Dequeue(warrior, Monster_Parents, "Warrior", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
+
+            StartCoroutine(warrior.GetComponent<Monster>().Warrior_Move());
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(Monster());
     }
+
+
+
+
 
 }

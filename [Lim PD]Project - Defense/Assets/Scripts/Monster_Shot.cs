@@ -19,7 +19,7 @@ public class Monster_Shot : MonoBehaviour
     void FixedUpdate()
     {
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, enemy, 0.1f);
-        if(transform.localPosition == enemy)
+        if (transform.localPosition == enemy)
         {
             Delete_Shot();
         }
@@ -33,7 +33,7 @@ public class Monster_Shot : MonoBehaviour
             Delete_Shot();
         }
 
-        if (collision.name == "Me")
+        if (collision.name == "Me" || collision.name == "Heroo")
         {
             Delete_Shot();
         }
