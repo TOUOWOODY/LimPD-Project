@@ -77,11 +77,22 @@ public class Ingame : MonoBehaviour
         Kill_Text.text = "KILL " + Kill_Count;
 
 
-        if(Kill_Count == 3)
+        if(Kill_Count == 10)
         {
             Boss();
             Hero();
             Debug.Log("10킬 !! 보스 등장");
+        }
+
+        if(Kill_Count == 5)
+        {
+            Tower0.SetActive(true);
+            StartCoroutine(Tower0.GetComponent<Tower>().Shot_Bomb());
+        }
+        if (Kill_Count == 7)
+        {
+            Tower1.SetActive(true);
+            StartCoroutine(Tower1.GetComponent<Tower>().Shot_Bomb());
         }
     }
     public void Initialized()

@@ -26,7 +26,6 @@ public class Tower : MonoBehaviour
             if (collision.name == "Archer" || collision.name == "Warrior")
             {
                 enemy = collision.gameObject;
-                StartCoroutine(Shot_Bomb());
             }
         }
     }

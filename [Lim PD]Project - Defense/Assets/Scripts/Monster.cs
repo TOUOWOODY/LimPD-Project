@@ -88,8 +88,15 @@ public class Monster : MonoBehaviour
             yield break;
         }
 
-        yield return new WaitForSeconds(0.01f);
-        StartCoroutine(Archer_Move());
+        if (!this.gameObject.activeSelf)
+        {
+            yield break;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.01f);
+            StartCoroutine(Archer_Move());
+        }
     }
 
     public IEnumerator Warrior_Move()
@@ -106,9 +113,11 @@ public class Monster : MonoBehaviour
         {
             yield break;
         }
-
-        yield return new WaitForSeconds(0.01f);
-        StartCoroutine(Warrior_Move());
+        else
+        {
+            yield return new WaitForSeconds(0.01f);
+            StartCoroutine(Warrior_Move());
+        }
     }
 
     public IEnumerator Warrior_Move2(Vector3 target)
