@@ -8,10 +8,10 @@ public class Tower : MonoBehaviour
     private GameObject enemy;
 
     [SerializeField]
-    private GameObject bomb_Parents;
+    private GameObject Shot_Parents;
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -23,16 +23,17 @@ public class Tower : MonoBehaviour
     {
         if(enemy == null)
         {
-            if (collision.name == "Zombie")
+            if (collision.name == "Archer" || collision.name == "Warrior")
             {
                 enemy = collision.gameObject;
+                StartCoroutine(Shot_Bomb());
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "Zombie")
+        if (collision.name == "Archer" || collision.name == "Warrior")
         {
             enemy = null;
         }
@@ -40,13 +41,13 @@ public class Tower : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.name != "Zombie")
+        if (collision.name == "Archer" || collision.name == "Warrior")
         {
             enemy = null;
         }
         if (enemy == null)
         {
-            if (collision && collision.name == "Zombie")
+            if (collision && collision.name == "Archer" || collision.name == "Warrior")
             {
                 float dis = Vector2.Distance(collision.transform.localPosition, transform.localPosition);
 
@@ -73,12 +74,12 @@ public class Tower : MonoBehaviour
     {
         if (enemy != null && enemy.activeSelf)
         {
-            GameObject bomb = Game_Manager.Instance.object_Pooling.Bomb_OP.Dequeue();
-            bomb.transform.SetParent(bomb_Parents.transform, false);
-            bomb.GetComponent<Bomb>().Enemy = enemy.transform.localPosition;
-            bomb.transform.localPosition = this.transform.localPosition;
-            bomb.SetActive(true);
-            bomb.name = "Bomb";
+            GameObject shot = Game_Manager.Instance.object_Pooling.Tower_Shot_OP.Dequeue();
+            shot.transform.SetParent(Shot_Parents.transform, false);
+            shot.GetComponent<Tower_Shot>().Enemy = enemy.transform.localPosition;
+            shot.transform.localPosition = this.transform.localPosition;
+            shot.SetActive(true);
+            shot.name = "Tower_Shot";
         }
         yield return new WaitForSeconds(0.5f);
 

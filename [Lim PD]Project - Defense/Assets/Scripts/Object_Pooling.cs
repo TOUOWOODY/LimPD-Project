@@ -7,7 +7,7 @@ public class Object_Pooling : MonoBehaviour
     [SerializeField]
     private GameObject Arrow;
     [SerializeField]
-    private GameObject Bomb;
+    private GameObject Tower_Shot;
     [SerializeField]
     private GameObject Monster_Shot;
     [SerializeField]
@@ -35,7 +35,7 @@ public class Object_Pooling : MonoBehaviour
     public Queue<GameObject> Arrow_OP = null;
     public Queue<GameObject> Monster_Shot_OP = null;
     public Queue<GameObject> Boss_Shot_OP = null;
-    public Queue<GameObject> Bomb_OP = null;
+    public Queue<GameObject> Tower_Shot_OP = null;
 
     public Queue<GameObject> Hero_OP = null;
 
@@ -48,7 +48,7 @@ public class Object_Pooling : MonoBehaviour
     public void Initialized()
     {
         Arrow_OP = new Queue<GameObject>();
-        Bomb_OP = new Queue<GameObject>();
+        Tower_Shot_OP = new Queue<GameObject>();
         Monster_Shot_OP = new Queue<GameObject>();
         Boss_Shot_OP = new Queue<GameObject>();
 
@@ -67,7 +67,7 @@ public class Object_Pooling : MonoBehaviour
 
         for (int i = 0; i < 100; i++)
         {
-            OP(Bomb, Bomb_OP);
+            OP(Tower_Shot, Tower_Shot_OP);
         }
 
         for (int i = 0; i < 100; i++)

@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
-        if (collision.name == "Arrow" || collision.name == "Heroo")
+        if (collision.name == "Arrow" || collision.name == "Heroo" || collision.name == "Tower_Shot")
         {
             Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
@@ -132,7 +132,7 @@ public class Monster : MonoBehaviour
 
     public IEnumerator Warrior_Move3()
     {
-        transform.Translate(0, -0.01f, 0);
+        transform.Translate(0, -0.02f, 0);
 
 
         if (!this.gameObject.activeSelf)

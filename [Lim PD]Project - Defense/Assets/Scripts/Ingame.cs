@@ -19,6 +19,11 @@ public class Ingame : MonoBehaviour
     //캐릭터
     public GameObject Me;
 
+    //타워 1, 2
+    [SerializeField]
+    private GameObject Tower0;
+    [SerializeField]
+    private GameObject Tower1;
 
     // 프리팹 부모들
     public GameObject Shot_Parents;
@@ -111,19 +116,6 @@ public class Ingame : MonoBehaviour
 
     }
 
-
-
-    public void Click_Tower()
-    {
-        if (EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite != Tower_Image)
-        {
-            StartCoroutine(EventSystem.current.currentSelectedGameObject.GetComponent<Tower>().Shot_Bomb());
-        }
-
-        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = Tower_Image;
-    }
-
-
     private void Boss()
     {
         GameObject boss = Manager.object_Pooling.Boss_OP.Dequeue();
@@ -174,7 +166,7 @@ public class Ingame : MonoBehaviour
             StartCoroutine(warrior.GetComponent<Monster>().Warrior_Move());
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(Monster());
     }
 

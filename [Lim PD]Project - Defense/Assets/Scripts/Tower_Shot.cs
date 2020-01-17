@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Tower_Shot : MonoBehaviour
 {
 
     public Vector3 Enemy;
@@ -18,7 +18,7 @@ public class Bomb : MonoBehaviour
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, Enemy, 10f);
         if (this.transform.localPosition == Enemy)
         {
-            Game_Manager.Instance.object_Pooling.Bomb_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Tower_Shot_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.gameObject.SetActive(false);
         }
@@ -26,9 +26,9 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Zombie")
+        if (collision.name == "Archer" || collision.name == "Warrior")
         {
-            Game_Manager.Instance.object_Pooling.Bomb_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Tower_Shot_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
             this.gameObject.SetActive(false);
         }
