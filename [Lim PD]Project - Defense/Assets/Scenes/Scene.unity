@@ -387,7 +387,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
@@ -974,7 +974,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 64792818064091435, guid: 5f1eb9215f181e043ae22f4818c1df57, type: 3}
-  Bomb: {fileID: 2278782737789040493, guid: 79671d8ed50932142b6c110daa08666d, type: 3}
+  Tower_Shot: {fileID: 1842905043340768979, guid: 79671d8ed50932142b6c110daa08666d,
+    type: 3}
   Monster_Shot: {fileID: 6982857526238019555, guid: 498320a06d587f54d943fb9e380bff4d,
     type: 3}
   Boss_Shot: {fileID: 1397804166824313748, guid: d2fefa2ae13ab9d4c839939c5a83a875,
@@ -1167,7 +1168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 3.3, y: -0.08}
+  m_AnchoredPosition: {x: 3.33, y: -0.08}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1074709372
@@ -1515,8 +1516,8 @@ MonoBehaviour:
   Hero_Flag_Right: {fileID: 2139215242}
   Hero_Flag_Left: {fileID: 421022282}
   Me: {fileID: 5526479140420308529}
-  Tower0: {fileID: 0}
-  Tower1: {fileID: 0}
+  Tower0: {fileID: 3329780898434821379}
+  Tower1: {fileID: 216370239}
   Shot_Parents: {fileID: 1943923394}
   item_Parents: {fileID: 1907951108}
   Monster_Parents: {fileID: 1381263531}
@@ -3008,7 +3009,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}

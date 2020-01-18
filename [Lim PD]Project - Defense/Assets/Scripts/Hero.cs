@@ -32,13 +32,29 @@ public class Hero : MonoBehaviour
         StartCoroutine(Hero_Move2());
     }
 
+    IEnumerator Move_Enemy(Vector3 target, GameObject target_onject)
+    {
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 0.05f);
 
+        if(!target_onject.activeSelf)
+        {
+            enemy = false;
+            StartCoroutine(Hero_Move2());
+            yield break;
+        }
+        yield return new WaitForSeconds(0.01f);
+        StartCoroutine(Move_Enemy(target, target_onject));
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.name == "Archer" || collision.name == "Warrior")
         {
-            enemy = true;
+            if(!enemy)
+            {
+                StartCoroutine(Move_Enemy(collision.transform.localPosition, collision.gameObject));
+                enemy = true;
+            }
         }
     }
 
@@ -52,24 +68,13 @@ public class Hero : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision && enemy)
+        if(collision && !enemy)
         {
             if (collision.name == "Archer" || collision.name == "Warrior")
             {
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, collision.gameObject.transform.localPosition, 0.05f);
+                enemy = true;
+                StartCoroutine(Move_Enemy(collision.transform.localPosition, collision.gameObject));
             }
-            else
-            {
-                //transform.localPosition = Vector3.MoveTowards(transform.localPosition, new Vector3(0, 3f, 0), 0.02f);
-            }
-        }
-        else
-        {
-            //if(enemy)
-            //{
-            //    StartCoroutine(Hero_Move2());
-            //    enemy = false;
-            //}
         }
     }
 }

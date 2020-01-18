@@ -177,7 +177,7 @@ public class Ingame : MonoBehaviour
             StartCoroutine(warrior.GetComponent<Monster>().Warrior_Move());
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(Monster());
     }
 
