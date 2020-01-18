@@ -84,22 +84,6 @@ public class Monster : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-
-
-    private void Drop_Item()
-    {
-        int random = UnityEngine.Random.Range(0, 10);
-
-        if(random == 0)
-        {
-            GameObject item = Game_Manager.Instance.object_Pooling.Item_OP.Dequeue();
-            item.SetActive(true);
-            item.name = "Item";
-            item.transform.SetParent(Game_Manager.Instance.ingame.item_Parents.transform, false);
-            item.transform.localPosition = this.transform.localPosition;
-        }
-    }
-
     IEnumerator Attack()
     {
         if (!this.gameObject.activeSelf)

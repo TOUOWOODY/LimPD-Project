@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     public bool Left_End = false;
 
 
-    private float hp = 100;
+    private float hp = 1000;
     private float speed = 0.05f;
     private float power = 12;
 

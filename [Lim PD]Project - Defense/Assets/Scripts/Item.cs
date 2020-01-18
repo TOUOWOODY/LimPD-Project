@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     {
         if (collision.name == "Me")
         {
+            Game_Manager.Instance.ingame.Arrow_Speed = 0.1f;
             Delete_Item(this.name);
         }
     }
@@ -16,11 +17,7 @@ public class Item : MonoBehaviour
     {
         if (shot_name == "Item")
         {
-            Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Enqueue(this.gameObject);
-        }
-        else
-        {
-            Game_Manager.Instance.object_Pooling.Boss_Shot_OP.Enqueue(this.gameObject);
+            Game_Manager.Instance.object_Pooling.Item_OP.Enqueue(this.gameObject);
         }
         this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
         this.gameObject.SetActive(false);

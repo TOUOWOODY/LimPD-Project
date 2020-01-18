@@ -33,7 +33,7 @@ public class Boss : MonoBehaviour
                 {
                     HP_Bar.localScale = new Vector3(0, 0, 0);
                     Game_Manager.Instance.ingame.Kill();
-                    Death_Boss(this.name);
+                    Death_Boss();
                 }
             }
         }
@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour
                 {
                     HP_Bar.localScale = new Vector3(0, 0, 0);
                     Game_Manager.Instance.ingame.Kill();
-                    Death_Boss(this.name);
+                    Death_Boss();
 
                 }
             }
@@ -60,7 +60,7 @@ public class Boss : MonoBehaviour
 
     }
 
-    private void Death_Boss(string name)
+    private void Death_Boss()
     {
         Game_Manager.Instance.object_Pooling.Boss_OP.Enqueue(this.gameObject);
         this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
@@ -110,6 +110,11 @@ public class Boss : MonoBehaviour
             yield break;
         }
 
+        if(!this.gameObject.activeSelf)
+        {
+            yield break;
+        }
+
         yield return new WaitForSeconds(0.01f);
         StartCoroutine(Boss_Move());
     }
@@ -133,6 +138,11 @@ public class Boss : MonoBehaviour
                 left = true;
                 right = false;
             }
+        }
+
+        if (!this.gameObject.activeSelf)
+        {
+            yield break;
         }
 
 

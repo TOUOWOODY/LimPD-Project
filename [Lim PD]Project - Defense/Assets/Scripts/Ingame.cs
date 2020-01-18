@@ -76,6 +76,10 @@ public class Ingame : MonoBehaviour
         {
             return arrow_Speed;
         }
+        set
+        {
+            arrow_Speed = value;
+        }
     }
       
 
@@ -85,7 +89,7 @@ public class Ingame : MonoBehaviour
         Kill_Text.text = "KILL " + Kill_Count;
 
 
-        if(Kill_Count == 10)
+        if(Kill_Count == 3)
         {
             Boss();
             Hero();
@@ -213,11 +217,10 @@ public class Ingame : MonoBehaviour
 
     public void Drop_Item()
     {
-        GameObject item = Manager.object_Pooling.Item_OP.Dequeue();
-
         if (UnityEngine.Random.Range(0, 10) == 0)
         {
-            Object_Dequeue(item, Monster_Parents, "Item", new Vector2(UnityEngine.Random.Range(-2.5f, 2.5f), -3f));
+            GameObject item = Manager.object_Pooling.Item_OP.Dequeue();
+            Object_Dequeue(item, item_Parents, "Item", new Vector2(UnityEngine.Random.Range(-2.5f, 2.5f), -3f));
         }
     }
 

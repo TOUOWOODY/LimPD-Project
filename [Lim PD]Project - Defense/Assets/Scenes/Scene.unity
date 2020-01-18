@@ -1590,7 +1590,7 @@ MonoBehaviour:
   Archer: {fileID: 4480255749986951785, guid: 53dbcf454ede03d4297eac379881baac, type: 3}
   Warrior: {fileID: 346343846100715426, guid: 57e90b2df104da14989bc42559255467, type: 3}
   Boss: {fileID: 3150414506780965603, guid: d6ab722dba76c684b9edbcb1ba9a9d96, type: 3}
-  Item: {fileID: 1426027850047605643, guid: 183b6c5b29f7ce34ca5dc1182e2424d5, type: 3}
+  Item: {fileID: 2705752777952329089, guid: ced8eb98bbe93524bb0b2a2e83a3cd60, type: 3}
   OP_Parents: {fileID: 992955064}
 --- !u!224 &992955066
 RectTransform:
