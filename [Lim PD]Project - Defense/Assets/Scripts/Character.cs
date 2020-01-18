@@ -9,22 +9,36 @@ public class Character : MonoBehaviour
 
     public bool Right_End = false;
     public bool Left_End = false;
+
+
+    private float hp = 100;
+    private float speed = 0.05f;
+    private float power = 12;
+
+    [SerializeField]
+    private Transform HP_Bar;
+
     void Start()
     {
-        
     }
 
+    public void Initialize()
+    {
+        hp = Game_Manager.Instance.ingame.Units_info[this.name].HP;
+        speed = Game_Manager.Instance.ingame.Units_info[this.name].Speed;
+        power = Game_Manager.Instance.ingame.Units_info[this.name].Power;
+    }
 
     void FixedUpdate()
     {
         if (m_Right && !Right_End)
         {
-            transform.Translate(0.07f, 0, 0);
+            transform.Translate(speed, 0, 0);
         }
 
         if (m_Left && !Left_End)
         {
-            transform.Translate(-0.07f, 0, 0);
+            transform.Translate(-speed, 0, 0);
         }
     }
 
@@ -38,6 +52,19 @@ public class Character : MonoBehaviour
         if (collision.name == "Left_Wall")
         {
             Left_End = true;
+        }
+
+        if (collision.name == "Monster_Shot" || collision.name == "Boss_Shot")
+        {
+            if (HP_Bar.localScale.x > 0)
+            {
+                HP_Bar.localScale -= new Vector3((20f / hp), 0, 0);
+            }
+            else
+            {
+                HP_Bar.localScale = new Vector3(0, 0, 0);
+                Game_Manager.Instance.ingame.Finish_Game();
+            }
         }
     }
 

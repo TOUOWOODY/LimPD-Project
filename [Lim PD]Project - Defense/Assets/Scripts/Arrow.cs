@@ -21,8 +21,6 @@ public class Arrow : MonoBehaviour
         if (collision.name == "Archer" || collision.name == "Warrior" || collision.name == "Boss")
         {
             Delete_Shot();
-
-            Game_Manager.Instance.ingame.Kill();
         }
 
         if (collision.name == "End_Wall")

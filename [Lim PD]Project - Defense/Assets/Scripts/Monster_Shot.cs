@@ -33,7 +33,7 @@ public class Monster_Shot : MonoBehaviour
             Delete_Shot(this.name);
         }
 
-        if (collision.name == "Me" || collision.name == "Heroo")
+        if (collision.name == "Me" || collision.name == "Heroo" || collision.name == "Tower")
         {
             Delete_Shot(this.name);
         }

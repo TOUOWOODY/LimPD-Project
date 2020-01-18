@@ -43,6 +43,14 @@ public class Ingame : MonoBehaviour
     private Text Score_Text;
 
 
+    // 패널
+    [SerializeField]
+    private GameObject Start_Panel;
+    [SerializeField]
+    private GameObject Finish_Panel;
+
+
+
     private Game_Manager Manager;
 
     private int kill_Count = 0;
@@ -61,7 +69,7 @@ public class Ingame : MonoBehaviour
     //private float zombie_Speed = 0.5f;
    
 
-    public Dictionary<string, Monster_Information> Monster_info = null;
+    public Dictionary<string, Units_Information> Units_info = null;
     public float Arrow_Speed
     {
         get
@@ -94,30 +102,37 @@ public class Ingame : MonoBehaviour
             Tower1.SetActive(true);
             StartCoroutine(Tower1.GetComponent<Tower>().Shot_Bomb());
         }
+
+        Drop_Item();
     }
     public void Initialized()
     {
         Manager = Game_Manager.Instance;
 
-        Monster_info = new Dictionary<string, Monster_Information>();
+        Units_info = new Dictionary<string, Units_Information>();
 
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 6; i++)
         {
-            Monster_Information monsger_infotmation = new Monster_Information();
+            Units_Information units_infotmation = new Units_Information();
 
-            monsger_infotmation.initialize(i);
-            Monster_info.Add(monsger_infotmation.Name, monsger_infotmation);
+            units_infotmation.initialize(i);
+            Units_info.Add(units_infotmation.Name, units_infotmation);
         }
+    }
 
-        Debug.Log(Monster_info["Archer"].Name);
-        Debug.Log(Monster_info["Warrior"].Name);
-        Debug.Log(Monster_info["Boss"].Name);
-        Debug.Log(Monster_info["Warrior"].Power);
 
+    public void Start_Btn()
+    {
+        Start_Panel.SetActive(false);
         StartCoroutine(Shot_Arrow());
         StartCoroutine(Monster());
     }
 
+
+    public void Finish_Game()
+    {
+        Finish_Panel.SetActive(true);
+    }
 
     private void Object_Dequeue(GameObject prefab, GameObject Parents, string Name, Vector3 position)
     {
@@ -150,6 +165,8 @@ public class Ingame : MonoBehaviour
 
         Object_Dequeue(hero, Monster_Parents, "Hero", Hero_Flag_Left.transform.localPosition);
 
+        hero.GetComponent<Hero>().Initialize();
+
         StartCoroutine(hero.GetComponent<Hero>().Hero_Move());
     }
 
@@ -161,6 +178,7 @@ public class Ingame : MonoBehaviour
         Object_Dequeue(arrow, Shot_Parents, "Arrow", Me.transform.localPosition);
 
         yield return new WaitForSeconds(arrow_Speed);
+
         StartCoroutine(Shot_Arrow());
     }
 
@@ -175,6 +193,7 @@ public class Ingame : MonoBehaviour
             Object_Dequeue(archer, Monster_Parents, "Archer", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
 
             archer.GetComponent<Monster>().Initialize();
+
             StartCoroutine(archer.GetComponent<Monster>().Archer_Move());
         }
         else // warrior
@@ -182,15 +201,25 @@ public class Ingame : MonoBehaviour
             GameObject warrior = Manager.object_Pooling.Warrior_OP.Dequeue();
 
             Object_Dequeue(warrior, Monster_Parents, "Warrior", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
+
             warrior.GetComponent<Monster>().Initialize();
+
             StartCoroutine(warrior.GetComponent<Monster>().Warrior_Move());
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(Monster());
     }
 
+    public void Drop_Item()
+    {
+        GameObject item = Manager.object_Pooling.Item_OP.Dequeue();
 
+        if (UnityEngine.Random.Range(0, 10) == 0)
+        {
+            Object_Dequeue(item, Monster_Parents, "Item", new Vector2(UnityEngine.Random.Range(-2.5f, 2.5f), -3f));
+        }
+    }
 
 
 

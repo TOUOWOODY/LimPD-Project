@@ -60,12 +60,15 @@ public class Object_Pooling : MonoBehaviour
 
         Item_OP = new Queue<GameObject>();
 
+
+        // 공격
+
         for (int i = 0; i < 100; i++)
         {
             OP(Arrow, Arrow_OP);
         }
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
         {
             OP(Tower_Shot, Tower_Shot_OP);
         }
@@ -75,14 +78,20 @@ public class Object_Pooling : MonoBehaviour
             OP(Monster_Shot, Monster_Shot_OP);
         }
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
         {
             OP(Boss_Shot, Boss_Shot_OP);
         }
 
 
+        // 아이탬
+        for (int i = 0; i < 20; i++)
+        {
+            OP(Item, Item_OP);
+        }
 
 
+        // 유닛
         for (int i = 0; i < 100; i++)
         {
             OP(Archer, Archer_OP);

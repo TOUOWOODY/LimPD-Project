@@ -24,9 +24,9 @@ public class Monster : MonoBehaviour
     }
     public void Initialize()
     {
-        hp = Game_Manager.Instance.ingame.Monster_info[this.name].HP;
-        speed = Game_Manager.Instance.ingame.Monster_info[this.name].Speed;
-        power = Game_Manager.Instance.ingame.Monster_info[this.name].Power;
+        hp = Game_Manager.Instance.ingame.Units_info[this.name].HP;
+        speed = Game_Manager.Instance.ingame.Units_info[this.name].Speed;
+        power = Game_Manager.Instance.ingame.Units_info[this.name].Power;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -35,20 +35,18 @@ public class Monster : MonoBehaviour
             Delete_Monster(this.name);
         }
 
-        if (collision.name == "Bomb")
-        {
-            Drop_Item();
-
-            Delete_Monster(this.name);
-        }
-
         if (collision.name == "Arrow" || collision.name == "Tower_Shot")
         {
-            HP_Bar.localScale -= new Vector3((12f / hp), 0, 0);
-
-            if(HP_Bar.localScale.x <= 0)
+            if(HP_Bar.localScale.x > 0)
             {
-                Delete_Monster(this.name);
+                HP_Bar.localScale -= new Vector3((20f / hp), 0, 0);
+
+                if(HP_Bar.localScale.x <= 0)
+                {
+                    HP_Bar.localScale = new Vector3(0, 0, 0);
+                    Game_Manager.Instance.ingame.Kill();
+                    Delete_Monster(this.name);
+                }
             }
         }
     }
@@ -57,11 +55,16 @@ public class Monster : MonoBehaviour
     {
         if (collision.name == "Heroo")
         {
-            HP_Bar.localScale -= new Vector3((1f / hp), 0, 0);
-
-            if (HP_Bar.localScale.x <= 0)
+            if (HP_Bar.localScale.x > 0)
             {
-                Delete_Monster(this.name);
+                HP_Bar.localScale -= new Vector3((1f / hp), 0, 0);
+
+                if (HP_Bar.localScale.x <= 0)
+                {
+                    HP_Bar.localScale = new Vector3(0, 0, 0);
+                    Game_Manager.Instance.ingame.Kill();
+                    Delete_Monster(this.name);
+                }
             }
         }
     }

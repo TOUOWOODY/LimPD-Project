@@ -9,6 +9,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField]
     private GameObject Shot_Parents;
+
     void Start()
     {
 
