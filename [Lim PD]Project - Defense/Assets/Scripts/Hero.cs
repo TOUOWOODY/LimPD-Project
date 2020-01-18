@@ -32,9 +32,9 @@ public class Hero : MonoBehaviour
         StartCoroutine(Hero_Move2());
     }
 
-    IEnumerator Move_Enemy(Vector3 target, GameObject target_onject)
+    IEnumerator Move_Enemy(GameObject target_onject)
     {
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 0.05f);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target_onject.transform.localPosition, 0.05f);
 
         if(!target_onject.activeSelf)
         {
@@ -43,7 +43,7 @@ public class Hero : MonoBehaviour
             yield break;
         }
         yield return new WaitForSeconds(0.01f);
-        StartCoroutine(Move_Enemy(target, target_onject));
+        StartCoroutine(Move_Enemy(target_onject));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +52,7 @@ public class Hero : MonoBehaviour
         {
             if(!enemy)
             {
-                StartCoroutine(Move_Enemy(collision.transform.localPosition, collision.gameObject));
+                StartCoroutine(Move_Enemy(collision.gameObject));
                 enemy = true;
             }
         }
@@ -73,7 +73,7 @@ public class Hero : MonoBehaviour
             if (collision.name == "Archer" || collision.name == "Warrior")
             {
                 enemy = true;
-                StartCoroutine(Move_Enemy(collision.transform.localPosition, collision.gameObject));
+                StartCoroutine(Move_Enemy(collision.gameObject));
             }
         }
     }

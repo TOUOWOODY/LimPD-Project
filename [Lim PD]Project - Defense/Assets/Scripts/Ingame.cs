@@ -99,17 +99,23 @@ public class Ingame : MonoBehaviour
     {
         Manager = Game_Manager.Instance;
 
-        StartCoroutine(Shot_Arrow());
-        StartCoroutine(Monster());
-
         Monster_info = new Dictionary<string, Monster_Information>();
-        Monster_Information monsger_infotmation = new Monster_Information();
 
         for(int i = 0; i < 3; i++)
         {
+            Monster_Information monsger_infotmation = new Monster_Information();
+
             monsger_infotmation.initialize(i);
             Monster_info.Add(monsger_infotmation.Name, monsger_infotmation);
         }
+
+        Debug.Log(Monster_info["Archer"].Name);
+        Debug.Log(Monster_info["Warrior"].Name);
+        Debug.Log(Monster_info["Boss"].Name);
+        Debug.Log(Monster_info["Warrior"].Power);
+
+        StartCoroutine(Shot_Arrow());
+        StartCoroutine(Monster());
     }
 
 
@@ -132,6 +138,8 @@ public class Ingame : MonoBehaviour
         GameObject boss = Manager.object_Pooling.Boss_OP.Dequeue();
 
         Object_Dequeue(boss, Monster_Parents, "Boss", new Vector3(UnityEngine.Random.Range(-1.9f, 1.9f), 5, 0));
+
+        boss.GetComponent<Boss>().Initialize();
 
         StartCoroutine(boss.GetComponent<Boss>().Boss_Move());
     }
@@ -166,6 +174,7 @@ public class Ingame : MonoBehaviour
 
             Object_Dequeue(archer, Monster_Parents, "Archer", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
 
+            archer.GetComponent<Monster>().Initialize();
             StartCoroutine(archer.GetComponent<Monster>().Archer_Move());
         }
         else // warrior
@@ -173,7 +182,7 @@ public class Ingame : MonoBehaviour
             GameObject warrior = Manager.object_Pooling.Warrior_OP.Dequeue();
 
             Object_Dequeue(warrior, Monster_Parents, "Warrior", new Vector2(UnityEngine.Random.Range(-1.9f, 1.9f), 5.5f));
-
+            warrior.GetComponent<Monster>().Initialize();
             StartCoroutine(warrior.GetComponent<Monster>().Warrior_Move());
         }
 

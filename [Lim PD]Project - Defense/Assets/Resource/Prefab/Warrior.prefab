@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster_y: {fileID: 482943655918222389}
+  HP_Bar: {fileID: 5224046494274440169}
 --- !u!1 &5224046494274440170
 GameObject:
   m_ObjectHideFlags: 0

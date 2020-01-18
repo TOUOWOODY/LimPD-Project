@@ -7,6 +7,13 @@ public class Boss : MonoBehaviour
     private bool right = false;
     private bool left = false;
 
+    [SerializeField]
+    private Transform HP_Bar;
+
+    private float hp;
+    private float speed;
+    private float power;
+
 
     void FixedUpdate()
     {
@@ -16,10 +23,31 @@ public class Boss : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.name == "Arrow")
+        {
+            HP_Bar.localScale -= new Vector3((30f / hp), 0, 0);
 
+            if (HP_Bar.localScale.x <= 0)
+            {
+                Death_Boss(this.name);
+            }
+        }
     }
 
+    private void Death_Boss(string name)
+    {
+        Game_Manager.Instance.object_Pooling.Boss_OP.Enqueue(this.gameObject);
+        this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+        this.transform.localPosition = new Vector2(0, 0);
+        this.gameObject.SetActive(false);
+    }
 
+    public void Initialize()
+    {
+        hp = Game_Manager.Instance.ingame.Monster_info[this.name].HP;
+        speed = Game_Manager.Instance.ingame.Monster_info[this.name].Speed;
+        power = Game_Manager.Instance.ingame.Monster_info[this.name].Power;
+    }
 
     public IEnumerator Boss_Attack()
     {

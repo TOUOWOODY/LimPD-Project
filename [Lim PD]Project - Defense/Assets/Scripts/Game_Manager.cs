@@ -24,11 +24,11 @@ public class Game_Manager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            object_Pooling.Initialized();
+            ingame.Initialized();
         }
     }
     void Start()
     {
-        object_Pooling.Initialized();
-        ingame.Initialized();
     }
 }

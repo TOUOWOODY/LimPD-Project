@@ -6,6 +6,12 @@ public class Monster : MonoBehaviour
 {
     public RectTransform monster_y;
 
+    private float hp;
+    private float speed;
+    private float power;
+
+    [SerializeField]
+    private Transform HP_Bar;
     void Start()
     {
 
@@ -14,37 +20,68 @@ public class Monster : MonoBehaviour
 
     void FixedUpdate()
     {
-        //transform.Translate(new Vector3(0, -0.01f, 0));
-    }
 
+    }
+    public void Initialize()
+    {
+        hp = Game_Manager.Instance.ingame.Monster_info[this.name].HP;
+        speed = Game_Manager.Instance.ingame.Monster_info[this.name].Speed;
+        power = Game_Manager.Instance.ingame.Monster_info[this.name].Power;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Wall")
         {
-            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.transform.localPosition = new Vector2(0, 0);
-            this.gameObject.SetActive(false);
+            Delete_Monster(this.name);
         }
 
         if (collision.name == "Bomb")
         {
             Drop_Item();
 
-            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.transform.localPosition = new Vector2(0, 0);
-            this.gameObject.SetActive(false);
+            Delete_Monster(this.name);
         }
 
-        if (collision.name == "Arrow" || collision.name == "Heroo" || collision.name == "Tower_Shot")
+        if (collision.name == "Arrow" || collision.name == "Tower_Shot")
         {
-            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-            this.transform.localPosition = new Vector2(0, 0);
-            this.gameObject.SetActive(false);
+            HP_Bar.localScale -= new Vector3((12f / hp), 0, 0);
+
+            if(HP_Bar.localScale.x <= 0)
+            {
+                Delete_Monster(this.name);
+            }
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.name == "Heroo")
+        {
+            HP_Bar.localScale -= new Vector3((1f / hp), 0, 0);
+
+            if (HP_Bar.localScale.x <= 0)
+            {
+                Delete_Monster(this.name);
+            }
+        }
+    }
+
+    private void Delete_Monster(string name)
+    {
+        if (name == "Archer")
+        {
+            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
+        }
+        else if (name == "Warrior")
+        {
+            Game_Manager.Instance.object_Pooling.Warrior_OP.Enqueue(this.gameObject);
+        }
+        this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+        this.transform.localPosition = new Vector2(0, 0);
+        this.gameObject.SetActive(false);
+    }
+
+
 
     private void Drop_Item()
     {

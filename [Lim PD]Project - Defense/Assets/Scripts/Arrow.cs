@@ -18,7 +18,7 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Archer" || collision.name == "Warrior")
+        if (collision.name == "Archer" || collision.name == "Warrior" || collision.name == "Boss")
         {
             Delete_Shot();
 
