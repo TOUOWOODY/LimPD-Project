@@ -10,6 +10,11 @@ public class Game_Manager : MonoBehaviour
 
     private static Game_Manager instance = null;    // 싱글톤
 
+
+    // UI
+    [SerializeField]
+    private GameObject Start_Panel;
+
     public static Game_Manager Instance
     {
         get
@@ -24,11 +29,14 @@ public class Game_Manager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            object_Pooling.Initialized();
-            ingame.Initialized();
+
+            Initialize();
         }
     }
-    void Start()
+    private void Initialize()
     {
+        Start_Panel.SetActive(true);
+        object_Pooling.Initialized();
+        ingame.Initialized();
     }
 }

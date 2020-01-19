@@ -77,17 +77,19 @@ public class Monster : MonoBehaviour
         if (HP_Bar.localScale.x <= 0)
         {
             HP_Bar.localScale = new Vector3(0, 0, 0);
-            Game_Manager.Instance.ingame.Kill();
+
+            Manager.ingame.Kill();
+            Manager.ingame.Score(this.name);
 
             if (name == "Archer")
             {
-                Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
+                Manager.object_Pooling.Archer_OP.Enqueue(this.gameObject);
             }
             else if (name == "Warrior")
             {
-                Game_Manager.Instance.object_Pooling.Warrior_OP.Enqueue(this.gameObject);
+                Manager.object_Pooling.Warrior_OP.Enqueue(this.gameObject);
             }
-            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.SetParent(Manager.object_Pooling.OP_Parents.transform, false);
             this.transform.localPosition = new Vector2(0, 0);
             this.gameObject.SetActive(false);
         }
@@ -99,12 +101,12 @@ public class Monster : MonoBehaviour
         {
             yield break;
         }
-        GameObject monster_shot = Game_Manager.Instance.object_Pooling.Monster_Shot_OP.Dequeue();
+        GameObject monster_shot = Manager.object_Pooling.Monster_Shot_OP.Dequeue();
         monster_shot.SetActive(true);
         //monster_shot.GetComponent<Monster_Shot>().Enemy = new Vector3(Game_Manager.Instance.ingame.Me.transform.localPosition.x * 1.25f ,-6f,0);
-        monster_shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition;
+        monster_shot.GetComponent<Monster_Shot>().Enemy = Manager.ingame.Me.transform.localPosition;
         monster_shot.name = "Monster_Shot";
-        monster_shot.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
+        monster_shot.transform.SetParent(Manager.ingame.Shot_Parents.transform, false);
         monster_shot.transform.localPosition = this.transform.localPosition;
 
         yield return new WaitForSeconds(1f);

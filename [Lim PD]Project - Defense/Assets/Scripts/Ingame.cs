@@ -55,6 +55,7 @@ public class Ingame : MonoBehaviour
 
     private Game_Manager Manager;
 
+    private int score = 0;
     private int kill_Count = 0;
     public int Kill_Count
     {
@@ -68,8 +69,6 @@ public class Ingame : MonoBehaviour
         }
     }
     private float arrow_Speed = 0.5f;
-    //private float zombie_Speed = 0.5f;
-   
 
     public Dictionary<string, Units_Information> Units_info = null;
     public float Arrow_Speed
@@ -83,12 +82,31 @@ public class Ingame : MonoBehaviour
             arrow_Speed = value;
         }
     }
-      
+    
+    public void Score(string name)
+    {
+        switch(name)
+        {
+            case "Archer":
+                score += 7;
+                break;
+            case "Warrior":
+                score += 12;
+                break;
+            case "Boss":
+                score += 150;
+                break;
+        }
+
+        Score_Text.text = "SCORE : " + score;
+    }
 
     public void Kill()
     {
         kill_Count += 1;
         Kill_Text.text = "KILL " + Kill_Count;
+
+
 
 
         if(Kill_Count == 3)

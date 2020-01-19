@@ -54,7 +54,9 @@ public class Boss : MonoBehaviour
         if (HP_Bar.localScale.x <= 0)
         {
             HP_Bar.localScale = new Vector3(0, 0, 0);
+
             Manager.ingame.Kill();
+            Manager.ingame.Score(this.name);
 
             Manager.object_Pooling.Boss_OP.Enqueue(this.gameObject);
             this.transform.SetParent(Manager.object_Pooling.OP_Parents.transform, false);
