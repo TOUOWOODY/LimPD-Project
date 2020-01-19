@@ -100,7 +100,7 @@ public class Units_Information
                 break;
             case 5:
                 name = "Boss";
-                power = 30;
+                power = 20;
                 speed = 0.01f;
                 hp = 500;
                 break;

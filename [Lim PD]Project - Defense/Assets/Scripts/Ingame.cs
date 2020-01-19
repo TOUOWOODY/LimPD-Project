@@ -18,6 +18,8 @@ public class Ingame : MonoBehaviour
 
     //캐릭터
     public GameObject Me;
+    [SerializeField]
+    private GameObject Princess;
 
     //타워 1, 2
     [SerializeField]
@@ -111,6 +113,7 @@ public class Ingame : MonoBehaviour
     }
     public void Initialized()
     {
+        Princess.GetComponent<Princess>().Initialize();
         Manager = Game_Manager.Instance;
 
         Units_info = new Dictionary<string, Units_Information>();

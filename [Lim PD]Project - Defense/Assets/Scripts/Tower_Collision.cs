@@ -15,11 +15,20 @@ public class Tower_Collision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Monster_Shot")
+        if(collision.name == "Monster_Shot" || collision.name == "Boss_Shot")
         {
             if (HP_Bar.localScale.x > 0)
             {
-                HP_Bar.localScale -= new Vector3((20f / hp), 0, 0);
+
+                if (collision.name == "Monster_Shot")
+                {
+                    HP_Bar.localScale -= new Vector3((Game_Manager.Instance.ingame.Units_info["Archer"].Power / hp), 0, 0);
+                }
+                else if(collision.name == "Boss_Shot")
+                {
+                    HP_Bar.localScale -= new Vector3((Game_Manager.Instance.ingame.Units_info["Boss"].Power / hp), 0, 0);
+                }
+
 
                 if (HP_Bar.localScale.x <= 0)
                 {
