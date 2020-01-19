@@ -82,7 +82,7 @@ public class Units_Information
                 break;
             case 2:
                 name = "Tower";
-                power = 12;
+                power = 20;
                 speed = 0.05f;
                 hp = 200;
                 break;

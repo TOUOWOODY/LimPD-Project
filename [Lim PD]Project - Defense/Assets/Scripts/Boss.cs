@@ -14,7 +14,7 @@ public class Boss : MonoBehaviour
     private float speed;
     private float power;
 
-
+    private Game_Manager Manager = null;
     void FixedUpdate()
     {
 
@@ -27,14 +27,9 @@ public class Boss : MonoBehaviour
         {
             if (HP_Bar.localScale.x > 0)
             {
-                HP_Bar.localScale -= new Vector3((30f / hp), 0, 0);
+                HP_Bar.localScale -= new Vector3((Manager.ingame.Units_info["Me"].Power / hp), 0, 0);
 
-                if (HP_Bar.localScale.x <= 0)
-                {
-                    HP_Bar.localScale = new Vector3(0, 0, 0);
-                    Game_Manager.Instance.ingame.Kill();
-                    Death_Boss();
-                }
+                Death_Boss();
             }
         }
     }
@@ -47,13 +42,7 @@ public class Boss : MonoBehaviour
             {
                 HP_Bar.localScale -= new Vector3((1f / hp), 0, 0);
 
-                if (HP_Bar.localScale.x <= 0)
-                {
-                    HP_Bar.localScale = new Vector3(0, 0, 0);
-                    Game_Manager.Instance.ingame.Kill();
-                    Death_Boss();
-
-                }
+                Death_Boss();
             }
         }
 
@@ -62,27 +51,35 @@ public class Boss : MonoBehaviour
 
     private void Death_Boss()
     {
-        Game_Manager.Instance.object_Pooling.Boss_OP.Enqueue(this.gameObject);
-        this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-        this.transform.localPosition = new Vector2(0, 0);
-        this.gameObject.SetActive(false);
+        if (HP_Bar.localScale.x <= 0)
+        {
+            HP_Bar.localScale = new Vector3(0, 0, 0);
+            Manager.ingame.Kill();
+
+            Manager.object_Pooling.Boss_OP.Enqueue(this.gameObject);
+            this.transform.SetParent(Manager.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void Initialize()
     {
-        hp = Game_Manager.Instance.ingame.Units_info[this.name].HP;
-        speed = Game_Manager.Instance.ingame.Units_info[this.name].Speed;
-        power = Game_Manager.Instance.ingame.Units_info[this.name].Power;
+        Manager = Game_Manager.Instance;
+
+        hp = Manager.ingame.Units_info[this.name].HP;
+        speed = Manager.ingame.Units_info[this.name].Speed;
+        power = Manager.ingame.Units_info[this.name].Power;
     }
 
     public IEnumerator Boss_Attack()
     {
 
-        GameObject shot = Game_Manager.Instance.object_Pooling.Boss_Shot_OP.Dequeue();
+        GameObject shot = Manager.object_Pooling.Boss_Shot_OP.Dequeue();
         shot.SetActive(true);
-        shot.GetComponent<Monster_Shot>().Enemy = Game_Manager.Instance.ingame.Me.transform.localPosition;
+        shot.GetComponent<Monster_Shot>().Enemy = Manager.ingame.Me.transform.localPosition;
         shot.name = "Boss_Shot";
-        shot.transform.SetParent(Game_Manager.Instance.ingame.Shot_Parents.transform, false);
+        shot.transform.SetParent(Manager.ingame.Shot_Parents.transform, false);
         shot.transform.localPosition = this.transform.localPosition;
 
         yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.5f));

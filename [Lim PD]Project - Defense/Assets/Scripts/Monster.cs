@@ -12,6 +12,8 @@ public class Monster : MonoBehaviour
 
     [SerializeField]
     private Transform HP_Bar;
+
+    private Game_Manager Manager = null;
     void Start()
     {
 
@@ -24,14 +26,18 @@ public class Monster : MonoBehaviour
     }
     public void Initialize()
     {
-        hp = Game_Manager.Instance.ingame.Units_info[this.name].HP;
-        speed = Game_Manager.Instance.ingame.Units_info[this.name].Speed;
-        power = Game_Manager.Instance.ingame.Units_info[this.name].Power;
+        Manager = Game_Manager.Instance;
+
+        hp = Manager.ingame.Units_info[this.name].HP;
+        speed = Manager.ingame.Units_info[this.name].Speed;
+        power = Manager.ingame.Units_info[this.name].Power;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Wall")
         {
+            HP_Bar.localScale -= new Vector3(hp, 0, 0);
+
             Delete_Monster(this.name);
         }
 
@@ -39,14 +45,16 @@ public class Monster : MonoBehaviour
         {
             if(HP_Bar.localScale.x > 0)
             {
-                HP_Bar.localScale -= new Vector3((20f / hp), 0, 0);
-
-                if(HP_Bar.localScale.x <= 0)
+                if (collision.name == "Arrow")
                 {
-                    HP_Bar.localScale = new Vector3(0, 0, 0);
-                    Game_Manager.Instance.ingame.Kill();
-                    Delete_Monster(this.name);
+                    HP_Bar.localScale -= new Vector3((Manager.ingame.Units_info["Me"].Power / hp), 0, 0);
                 }
+                else if (collision.name == "Tower_Shot")
+                {
+                    HP_Bar.localScale -= new Vector3((Manager.ingame.Units_info["Tower"].Power / hp), 0, 0);
+                }
+
+                Delete_Monster(this.name);
             }
         }
     }
@@ -57,31 +65,32 @@ public class Monster : MonoBehaviour
         {
             if (HP_Bar.localScale.x > 0)
             {
-                HP_Bar.localScale -= new Vector3((1f / hp), 0, 0);
+                HP_Bar.localScale -= new Vector3((1f / hp), 0, 0); // 영웅 공격력으로 바꿔줘야댐
 
-                if (HP_Bar.localScale.x <= 0)
-                {
-                    HP_Bar.localScale = new Vector3(0, 0, 0);
-                    Game_Manager.Instance.ingame.Kill();
-                    Delete_Monster(this.name);
-                }
+                Delete_Monster(this.name);
             }
         }
     }
 
     private void Delete_Monster(string name)
     {
-        if (name == "Archer")
+        if (HP_Bar.localScale.x <= 0)
         {
-            Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
+            HP_Bar.localScale = new Vector3(0, 0, 0);
+            Game_Manager.Instance.ingame.Kill();
+
+            if (name == "Archer")
+            {
+                Game_Manager.Instance.object_Pooling.Archer_OP.Enqueue(this.gameObject);
+            }
+            else if (name == "Warrior")
+            {
+                Game_Manager.Instance.object_Pooling.Warrior_OP.Enqueue(this.gameObject);
+            }
+            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
+            this.gameObject.SetActive(false);
         }
-        else if (name == "Warrior")
-        {
-            Game_Manager.Instance.object_Pooling.Warrior_OP.Enqueue(this.gameObject);
-        }
-        this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
-        this.transform.localPosition = new Vector2(0, 0);
-        this.gameObject.SetActive(false);
     }
 
     IEnumerator Attack()

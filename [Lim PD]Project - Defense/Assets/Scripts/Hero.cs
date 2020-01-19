@@ -49,14 +49,38 @@ public class Hero : MonoBehaviour
     {
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, target_onject.transform.localPosition, speed * 2);
 
-        if(!target_onject.activeSelf)
+        HP_Bar.localScale -= new Vector3((0.1f / hp), 0, 0);
+
+        Death_Hero();
+
+        if (!target_onject.activeSelf)
         {
             enemy = false;
             StartCoroutine(Hero_Move2());
             yield break;
         }
+
+        if(!this.gameObject.activeSelf)
+        {
+            yield break;
+        }
         yield return new WaitForSeconds(0.01f);
         StartCoroutine(Move_Enemy(target_onject));
+    }
+
+
+    private void Death_Hero()
+    {
+        if (HP_Bar.localScale.x <= 0)
+        {
+            HP_Bar.localScale = new Vector3(0, 0, 0);
+
+            Game_Manager.Instance.object_Pooling.Hero_OP.Enqueue(this.gameObject);
+
+            this.transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
+            this.transform.localPosition = new Vector2(0, 0);
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
