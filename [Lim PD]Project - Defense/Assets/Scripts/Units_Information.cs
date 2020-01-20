@@ -84,7 +84,7 @@ public class Units_Information
                 name = "Tower";
                 power = 20;
                 speed = 0.05f;
-                hp = 200;
+                hp = 500;
                 break;
             case 3:
                 name = "Archer";

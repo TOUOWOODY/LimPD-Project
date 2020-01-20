@@ -98,13 +98,13 @@ public class Ingame : MonoBehaviour
                 break;
         }
 
-        Score_Text.text = "SCORE : " + score;
+        Score_Text.text = "SCORE  " + score;
     }
 
     public void Kill()
     {
         kill_Count += 1;
-        Kill_Text.text = "KILL " + Kill_Count;
+        Kill_Text.text = "KILL  " + Kill_Count;
 
 
 
