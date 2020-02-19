@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Game_Manager : MonoBehaviour
 {
-    public Ingame ingame;
 
-    public Object_Pooling object_Pooling;
+    //public Object_Pooling object_Pooling;
 
+
+    public Ball ball;
     private static Game_Manager instance = null;    // 싱글톤
 
 
@@ -35,8 +36,12 @@ public class Game_Manager : MonoBehaviour
     }
     private void Initialize()
     {
-        Start_Panel.SetActive(true);
-        object_Pooling.Initialized();
-        ingame.Initialized();
+
+    }
+
+
+    public void Throw_Btn()
+    {
+        ball.Throw_ball();
     }
 }
