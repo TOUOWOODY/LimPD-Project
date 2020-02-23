@@ -13,9 +13,14 @@ public class Game_Manager : MonoBehaviour
     [SerializeField]
     private GameObject Ball_Parents;
 
-
+    public GameObject Throw_Btn;
     [SerializeField]
     private GameObject Start_Panel;
+
+    private int count = 0;
+
+    [SerializeField]
+    private List<GameObject> Ball_Count = new List<GameObject>();
 
     private static Game_Manager instance = null;    // 싱글톤
 
@@ -44,8 +49,14 @@ public class Game_Manager : MonoBehaviour
     }
 
 
-    public void Throw_Btn()
+    public void Click_Throw()
     {
+        Throw_Btn.SetActive(false);
+        Ball_Count[count].SetActive(false);
+        count += 1;
+
+        Target.SetActive(false);
+
         GameObject ball = object_Pooling.Ball_OP.Dequeue();
         ball.SetActive(true);
         ball.transform.SetParent(Ball_Parents.transform, false);

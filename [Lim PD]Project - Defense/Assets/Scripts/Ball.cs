@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     private float scale = 0f;
 
     public Vector3 target;
+
+    
     public void Throw_ball()
     {
         speed = 0;
@@ -50,5 +52,8 @@ public class Ball : MonoBehaviour
         Game_Manager.Instance.object_Pooling.Ball_OP.Enqueue(this.gameObject);
         transform.SetParent(Game_Manager.Instance.object_Pooling.OP_Parents.transform, false);
         this.gameObject.SetActive(false);
+
+        Game_Manager.Instance.Target.GetComponent<Target>().Moving_Target();
+        Game_Manager.Instance.Throw_Btn.SetActive(true);
     }
 }
