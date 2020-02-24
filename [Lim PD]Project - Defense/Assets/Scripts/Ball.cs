@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
         speed += (Time.deltaTime * 0.1f);
         scale += (Time.deltaTime * 0.0005f);
 
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, speed);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 0.2f);
         this.transform.localScale -= new Vector3(scale, scale);
 
         yield return new WaitForSeconds(0.01f);

@@ -51,6 +51,14 @@ public class Game_Manager : MonoBehaviour
 
     public void Click_Throw()
     {
+        if(count == 3)
+        {
+            count = 0;
+            for(int i = 0; i < 3; i ++)
+            {
+                Ball_Count[i].gameObject.SetActive(true);
+            }
+        }
         Throw_Btn.SetActive(false);
         Ball_Count[count].SetActive(false);
         count += 1;
