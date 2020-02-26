@@ -55,5 +55,15 @@ public class Ball : MonoBehaviour
 
         Game_Manager.Instance.Target.GetComponent<Target>().Moving_Target();
         Game_Manager.Instance.Throw_Btn.SetActive(true);
+
+        End();
+    }
+
+    private void End()
+    {
+        if(!Game_Manager.Instance.Ball_Count[2].gameObject.activeSelf)
+        {
+            Game_Manager.Instance.End_Game();
+        }
     }
 }
